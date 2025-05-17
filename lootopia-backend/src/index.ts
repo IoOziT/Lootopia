@@ -1,10 +1,12 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import portefeuilleController from "./controller/portefeuilleController";
 
 const app = new Hono();
-//app.use(cors())
+app.use(cors());
 const port = 3000;
+console.log(`Server is running on http://localhost:${port}`);
 
 app.get("/", (context) => {
   return context.json("api is working", 200);
@@ -13,6 +15,8 @@ app.get("/", (context) => {
 app.notFound((context) => {
   return context.json("Custom 404 Message", 404);
 });
+
+app.route("/portefeuille", portefeuilleController);
 
 serve({
   fetch: app.fetch,

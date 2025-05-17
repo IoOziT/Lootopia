@@ -1,9 +1,202 @@
 generator client {
   provider = "prisma-client-js"
-  output = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model cache {
+  id         Int        @id @default(autoincrement())
+  nom        String     @db.VarChar(45)
+  style      style_enum
+  zone       String     @db.VarChar(100)
+  chasse_id  Int
+  created_at DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at DateTime?  @default(now()) @db.Timestamp(6)
+  chasse     chasse     @relation(fields: [chasse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  creuser    creuser[]
+}
+
+model carte_collection {
+  id         Int        @id @default(autoincrement())
+  nom        String     @db.VarChar(45)
+  style      style_enum
+  zone       String     @db.VarChar(100)
+  echelle    String     @db.VarChar(100)
+  created_at DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at DateTime?  @default(now()) @db.Timestamp(6)
+  posseder   posseder[]
+}
+
+model carte_geographique {
+  id         Int        @id @default(autoincrement())
+  nom        String     @db.VarChar(45)
+  style      style_enum
+  zone       String     @db.VarChar(100)
+  echelle    String     @db.VarChar(100)
+  created_at DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at DateTime?  @default(now()) @db.Timestamp(6)
+  etape      etape[]
+}
+
+model chasse {
+  id                  Int          @id @default(autoincrement())
+  titre               String       @db.VarChar(100)
+  description         String?
+  mode                mode_enum
+  date_de_fin         DateTime?    @db.Timestamp(6)
+  nb_max_participants Int?
+  frais               Decimal?     @db.Decimal(10, 2)
+  chat_actif          Boolean?
+  monde               monde_enum
+  createur_id         Int
+  created_at          DateTime?    @default(now()) @db.Timestamp(6)
+  updated_at          DateTime?    @default(now()) @db.Timestamp(6)
+  cache               cache[]
+  utilisateur         utilisateur  @relation(fields: [createur_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  contenir            contenir[]
+  creuser             creuser[]
+  etape               etape[]
+  participer          participer[]
+}
+
+model clef_validation {
+  id         Int            @id @default(autoincrement())
+  type       type_clef_enum
+  created_at DateTime?      @default(now()) @db.Timestamp(6)
+  updated_at DateTime?      @default(now()) @db.Timestamp(6)
+}
+
+model contenir {
+  id            Int        @id @default(autoincrement())
+  chasse_id     Int
+  recompense_id Int
+  created_at    DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at    DateTime?  @default(now()) @db.Timestamp(6)
+  chasse        chasse     @relation(fields: [chasse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  recompense    recompense @relation(fields: [recompense_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model creuser {
+  id             Int         @id @default(autoincrement())
+  chasse_id      Int
+  cache_id       Int
+  utilisateur_id Int
+  created_at     DateTime?   @default(now()) @db.Timestamp(6)
+  updated_at     DateTime?   @default(now()) @db.Timestamp(6)
+  cache          cache       @relation(fields: [cache_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  chasse         chasse      @relation(fields: [chasse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  utilisateur    utilisateur @relation(fields: [utilisateur_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model etape {
+  id                 Int                 @id @default(autoincrement())
+  indication         String
+  chasse_id          Int
+  carte_id           Int?
+  created_at         DateTime?           @default(now()) @db.Timestamp(6)
+  updated_at         DateTime?           @default(now()) @db.Timestamp(6)
+  carte_geographique carte_geographique? @relation(fields: [carte_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  chasse             chasse              @relation(fields: [chasse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model participer {
+  id             Int         @id @default(autoincrement())
+  utilisateur_id Int
+  chasse_id      Int
+  created_at     DateTime?   @default(now()) @db.Timestamp(6)
+  updated_at     DateTime?   @default(now()) @db.Timestamp(6)
+  chasse         chasse      @relation(fields: [chasse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  utilisateur    utilisateur @relation(fields: [utilisateur_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model portefeuille {
+  id             Int         @id @default(autoincrement())
+  contenu        Decimal     @db.Decimal(10, 2)
+  utilisateur_id Int
+  created_at     DateTime?   @default(now()) @db.Timestamp(6)
+  updated_at     DateTime?   @default(now()) @db.Timestamp(6)
+  utilisateur    utilisateur @relation(fields: [utilisateur_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model posseder {
+  id                  Int              @id @default(autoincrement())
+  utilisateur_id      Int
+  carte_collection_id Int
+  created_at          DateTime?        @default(now()) @db.Timestamp(6)
+  updated_at          DateTime?        @default(now()) @db.Timestamp(6)
+  carte_collection    carte_collection @relation(fields: [carte_collection_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  utilisateur         utilisateur      @relation(fields: [utilisateur_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model recompense {
+  id          Int                  @id @default(autoincrement())
+  nom         String               @db.VarChar(100)
+  description String?
+  type        type_recompense_enum
+  contenu     String
+  createur_id Int
+  created_at  DateTime?            @default(now()) @db.Timestamp(6)
+  updated_at  DateTime?            @default(now()) @db.Timestamp(6)
+  contenir    contenir[]
+  utilisateur utilisateur          @relation(fields: [createur_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model role {
+  id          Int           @id @default(autoincrement())
+  nom         role_enum
+  created_at  DateTime?     @default(now()) @db.Timestamp(6)
+  updated_at  DateTime?     @default(now()) @db.Timestamp(6)
+  utilisateur utilisateur[]
+}
+
+model utilisateur {
+  id           Int            @id @default(autoincrement())
+  email        String         @unique @db.VarChar(45)
+  mot_de_passe String         @db.VarChar(100)
+  role_id      Int
+  created_at   DateTime?      @default(now()) @db.Timestamp(6)
+  updated_at   DateTime?      @default(now()) @db.Timestamp(6)
+  chasse       chasse[]
+  creuser      creuser[]
+  participer   participer[]
+  portefeuille portefeuille[]
+  posseder     posseder[]
+  recompense   recompense[]
+  role         role           @relation(fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+enum mode_enum {
+  PUBLIC
+  PRIVE
+}
+
+enum monde_enum {
+  CARTOGRAPHIQUE
+  REEL
+}
+
+enum role_enum {
+  COMMUN
+  PARTENAIRE
+}
+
+enum style_enum {
+  RETRO
+  MODERNE
+}
+
+enum type_clef_enum {
+  DECOUVERTE
+  PASSPHRASE
+  REPERE
+}
+
+enum type_recompense_enum {
+  COURONNE
+  CARTE_COLLECTION
+  EXTERNE
 }
