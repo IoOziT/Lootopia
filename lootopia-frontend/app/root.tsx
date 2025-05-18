@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { Auth0Provider } from "@auth0/auth0-react";
 import type { Route } from "./+types/root";
 import "./app.css";
 import Menu from "./components/menu/menu";
@@ -31,21 +32,30 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html data-theme="acid" lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <Header />
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-        <Menu />
-      </body>
-    </html>
+    <Auth0Provider
+      domain="dev-t45du7jmlhk0m3wf.eu.auth0.com"
+      clientId="3CNYLTvW3jyTy4bvvXMYf3UdXUEVdTsb"
+      authorizationParams={{
+        redirect_uri: "http://localhost:5173",
+        audience: "https://dev-t45du7jmlhk0m3wf.eu.auth0.com/api/v2/",
+      }}
+    >
+      <html data-theme="acid" lang="en">
+        <head>
+          <meta charSet="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <Meta />
+          <Links />
+        </head>
+        <body>
+          <Header />
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+          <Menu />
+        </body>
+      </html>
+    </Auth0Provider>
   );
 }
 

@@ -1,7 +1,7 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import portefeuilleController from "./controller/portefeuilleController";
+import { utilisateurController } from "./controller/utilisateurController";
 
 const app = new Hono();
 app.use(cors());
@@ -16,7 +16,7 @@ app.notFound((context) => {
   return context.json("Custom 404 Message", 404);
 });
 
-app.route("/portefeuille", portefeuilleController);
+app.route("/user", utilisateurController);
 
 serve({
   fetch: app.fetch,
