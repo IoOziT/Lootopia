@@ -101,6 +101,9 @@ export default function RegisterForm() {
         S'inscrire
       </button>
       {error && <p>{error}</p>}
+      <span>
+        Déjà un compte ? <a href="/login">Se connecter</a>
+      </span>
     </form>
   );
 }

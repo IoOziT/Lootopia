@@ -80,6 +80,10 @@ export default function LoginForm() {
         Se connecter
       </button>
       {error && <p>{error}</p>}
+
+      <span>
+        Pas de compte ? <a href="/register">S'inscrire</a>
+      </span>
     </form>
   );
 }
