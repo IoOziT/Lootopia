@@ -1,16 +1,15 @@
 import { PrismaClient } from "@prisma/client";
 import type { Context } from "hono";
+import { utilisateurService } from "./utilisateurService";
 require("dotenv").config();
 
 const prisma = new PrismaClient();
 
 export const chasseService = {
-  create: async (context: Context) => {
+  create: async (chasseInput: any) => {
     try {
-      const requestBody = await context.req.json();
-
       const createdChasse = await prisma.chasse.create({
-        data: requestBody,
+        data: chasseInput,
       });
       return createdChasse;
     } catch (error) {

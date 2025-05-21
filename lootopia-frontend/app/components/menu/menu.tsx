@@ -1,6 +1,6 @@
 const menuLinks: any[] = [
   { path: "/", name: "Accueil", icon: "home" },
-  { path: "/shop", name: "Boutique", icon: "storefront" },
+  { path: "/hunt", name: "Hunt", icon: "star" },
 ];
 
 export default function Menu() {

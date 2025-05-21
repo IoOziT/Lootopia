@@ -11,7 +11,6 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import type { Route } from "./+types/root";
 import "./app.css";
 import Menu from "./components/menu/menu";
-import Header from "./components/header/header";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -47,8 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <Meta />
           <Links />
         </head>
-        <body>
-          <Header />
+        <body className="h-screen">
           {children}
           <ScrollRestoration />
           <Scripts />
