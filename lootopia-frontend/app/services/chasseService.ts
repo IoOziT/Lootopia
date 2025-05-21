@@ -1,16 +1,15 @@
 const API_ADDRESS = import.meta.env.VITE_API_ADDRESS;
 
 export const chasseService = {
-  findAll: async (email: string, token: string) => {
+  findAll: async (token: string) => {
     try {
-      const response = await fetch(`${API_ADDRESS}user/protected/wallet`, {
-        method: "POST",
+      const response = await fetch(`${API_ADDRESS}user/protected/`, {
+        method: "GET",
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ email: email }),
       });
 
       const json = await response.json();
@@ -42,19 +41,16 @@ export const chasseService = {
     }
   },
 
-  findById: async (email: string, token: string) => {
+  findById: async (id: number, token: string) => {
     try {
-      const response = await fetch(
-        `${API_ADDRESS}user/protected/get/${email}`,
-        {
-          method: "GET",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${API_ADDRESS}chasse/protected/${id}`, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("response", response);
       const json = await response.json();
       console.log("json", json);
