@@ -8,6 +8,7 @@ export default [
   route("login", "routes/auth/login.tsx"),
 
   // HUNT
+  route("hunt", "routes/chasse/chasseDisponible.tsx"),
   route("hunt/create", "routes/chasse/createChasse.tsx"),
   route("hunt/:id", "routes/chasse/detailsChasse.tsx"),
   route("hunt/:id/step/create", "routes/etape/createEtape.tsx"),

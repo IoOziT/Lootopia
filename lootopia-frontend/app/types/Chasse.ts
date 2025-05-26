@@ -1,4 +1,5 @@
 type Chasse = {
+  id: number;
   titre: string;
   localisation: string;
   description?: string;
