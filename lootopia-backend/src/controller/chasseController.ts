@@ -47,4 +47,25 @@ chasseController.get("/protected/:id", async (context: Context) => {
   return context.json(chasse, 200);
 });
 
+// INSCRIPTION
+chasseController.post("/protected/:id/inscription", async (context: Context) => {
+  const chasseId = Number(context.req.param("id"));
+  const user = context.get("user"); // ✅ Auth0 middleware
+
+  try {
+    const utilisateur = await utilisateurService.findByEmail(user.email);
+    if (!utilisateur) {
+      return context.json({ message: "Utilisateur non trouvé" }, 404);
+    }
+
+    const participation = await chasseService.register(chasseId, utilisateur.id);
+    return context.json(participation, 201);
+  } catch (error) {
+    console.error("Erreur lors de l'inscription :", error);
+    return context.json({ message: "Erreur lors de l'inscription" }, 500);
+  }
+});
+
+
+
 export { chasseController };
