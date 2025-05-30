@@ -35,8 +35,15 @@ chasseController.delete("/protected/:id", async (context: Context) => {
 });
 
 // FIND BY ID
+chasseController.get("/", async (context: Context) => {
+  const chasses = await chasseService.findAll();
+  return context.json(chasses, 200);
+});
+
+// FIND BY ID (protected)
 chasseController.get("/protected/:id", async (context: Context) => {
-  const chasse = await chasseService.findById(Number(context.req.param().id));
+  const id = Number(context.req.param("id"));
+  const chasse = await chasseService.findById(id);
   return context.json(chasse, 200);
 });
 

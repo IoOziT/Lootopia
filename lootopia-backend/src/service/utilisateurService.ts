@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import type { Context } from "hono";
-require("dotenv").config();
+import "dotenv/config";
 
 const prisma = new PrismaClient();
 

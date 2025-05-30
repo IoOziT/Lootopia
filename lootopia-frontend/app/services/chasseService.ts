@@ -1,14 +1,13 @@
 const API_ADDRESS = import.meta.env.VITE_API_ADDRESS;
 
 export const chasseService = {
-  findAll: async (token: string) => {
+  findAll: async () => {
     try {
-      const response = await fetch(`${API_ADDRESS}chasse/protected/`, {
+      const response = await fetch(`${API_ADDRESS}chasse`, {
         method: "GET",
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
       });
 
