@@ -1,12 +1,18 @@
 {
+  "type": "module",  
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "vite build --mode client && vite build",
     "preview": "wrangler dev",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "npm run build && wrangler deploy",
+    "seed": "prisma db seed"
   },
   "private": true,
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "dependencies": {
+    "@hono/node-server": "^1.14.3",
     "@prisma/client": "^6.5.0",
     "dotenv": "^16.5.0",
     "hono": "^4.7.5",
