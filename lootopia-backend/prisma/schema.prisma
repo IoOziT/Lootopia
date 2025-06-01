@@ -29,6 +29,7 @@ model carte_collection {
   created_at DateTime?  @default(now()) @db.Timestamp(6)
   updated_at DateTime?  @default(now()) @db.Timestamp(6)
   posseder   posseder[]
+  etapes etape[]
 }
 
 model carte_geographique {
@@ -39,7 +40,6 @@ model carte_geographique {
   echelle    String     @db.VarChar(100)
   created_at DateTime?  @default(now()) @db.Timestamp(6)
   updated_at DateTime?  @default(now()) @db.Timestamp(6)
-  etape      etape[]
 }
 
 model chasse {
@@ -100,7 +100,7 @@ model etape {
   carte_id           Int?
   created_at         DateTime?           @default(now()) @db.Timestamp(6)
   updated_at         DateTime?           @default(now()) @db.Timestamp(6)
-  carte_geographique carte_geographique? @relation(fields: [carte_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  carte_collection   carte_collection?   @relation(fields: [carte_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   chasse             chasse              @relation(fields: [chasse_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 

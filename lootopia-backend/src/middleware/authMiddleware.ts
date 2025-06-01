@@ -5,18 +5,14 @@ export async function authMiddleware(ctx: Context, next: Next) {
   const authHeader = ctx.req.header("Authorization");
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    console.log("tjirjfirj");
     return ctx.json({ message: "Unauthorized" }, 401);
   }
-  console.log("ytaaaaaaaaaaaaaaa");
 
   const token = authHeader.substring(7);
-  console.log("8");
   try {
-    console.log("1");
-    console.log("Token reçu:", token);
+   
+   
     const decoded = jwt.decode(token, { complete: true });
-    console.log("2");
     if (!decoded || typeof decoded === "string") {
       throw new Error("Invalid token");
     }

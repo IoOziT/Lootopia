@@ -1,24 +1,39 @@
 import { useEffect, useState } from "react";
 import type { Route } from "./+types/createChasse";
 import { chasseService } from "~/services/chasseService";
+import { etapeService } from "~/services/etapeService";
+import { useParams } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Lootopia | Détails chasse" }];
-}
+} 
 
 export default function DetailsChasse() {
   const [chasseData, setChasseData] = useState<Chasse | null>(null);
+  const [etapeData, setEtapeData] = useState<Etape[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const { id: id } = useParams();
+
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const token = localStorage.getItem("access_token");
-      chasseService.findById(1, token as string).then((data) => {
-        setChasseData(data);
-        setLoading(false);
-      });
-    }
+    const token = localStorage.getItem("access_token");
+
+    console.log("id", id);
+    if (!id) return;
+    console.log("id parsint", parseInt(id));
+    chasseService.findById(parseInt(id), token as string).then((data) => {
+      setChasseData(data);
+      setLoading(false);
+
+      etapeService
+        .findByChasseId(parseInt(id), token as string)
+        .then((etapeData) => {
+          setEtapeData(etapeData);
+          setLoading(false);
+        });
+      console.log("etapeData", etapeData);
+    });
   }, []);
 
   if (loading) return <p className="p-4">Chargement...</p>;
@@ -44,6 +59,14 @@ export default function DetailsChasse() {
           </div>
         </div>
       )}
+      <ul className="list-disc">
+        {etapeData &&
+          etapeData.map((etape) => (
+            <li className="bold" key={etape.id}>
+              {etape.indication}
+            </li>
+          ))}
+      </ul>
     </main>
   );
 }

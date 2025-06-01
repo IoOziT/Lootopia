@@ -29,9 +29,7 @@ export const utilisateurService = {
         },
         body: JSON.stringify(userInput),
       });
-      console.log("response", response);
       const json = await response.json();
-      console.log("json", json);
       return json;
     } catch (error) {
       console.error(error);
@@ -51,9 +49,7 @@ export const utilisateurService = {
           },
         }
       );
-      console.log("response", response);
       const json = await response.json();
-      console.log("json", json);
       return json;
     } catch (error) {
       console.error(error);

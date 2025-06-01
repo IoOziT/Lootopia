@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { utilisateurController } from "./controller/utilisateurController";
 import { chasseController } from "./controller/chasseController";
+import { etapeController } from "./controller/etapeController";
 
 const app = new Hono();
 app.use(cors());
@@ -19,6 +20,7 @@ app.notFound((context) => {
 
 app.route("/user", utilisateurController);
 app.route("/chasse", chasseController);
+app.route("/etape", etapeController);
 
 serve({
   fetch: app.fetch,

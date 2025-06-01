@@ -14,9 +14,7 @@ utilisateurController.post("/create", async (context: Context) => {
 
 // GET WALLET
 utilisateurController.post("/protected/wallet", async (context: Context) => {
-  console.log("requestBody", await context.req.json());
   const requestBody = await context.req.json();
-  console.log("AGAIN", requestBody);
   const utilisateur = await utilisateurService.findByEmail(requestBody.email);
 
   return context.json(utilisateur, 200);

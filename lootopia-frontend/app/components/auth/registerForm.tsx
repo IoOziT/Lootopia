@@ -42,7 +42,6 @@ export default function RegisterForm() {
         username: username,
         email: email,
       });
-      console.log("createResult", create);
 
       alert("Inscription réussie !");
     } catch (err: any) {

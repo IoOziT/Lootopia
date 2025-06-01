@@ -52,7 +52,12 @@ export default function CreateChasse() {
   return (
     <main className="h-11/12 flex flex-col items-gap-4">
       <header className="flex w-full bg-black text-white py-10">
-        <button className="px-4">Cancel</button>
+        <button
+          className="px-4 cursor-pointer"
+          onClick={() => window.history.back()}
+        >
+          Cancel
+        </button>
       </header>
       <div className="h-full">
         <h1 className="text-3xl font-bold">Create Hunt</h1>

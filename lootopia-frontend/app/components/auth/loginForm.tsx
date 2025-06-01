@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { redirect } from "react-router";
 import { utilisateurService } from "~/services/utilisateurService";
 
 export default function LoginForm() {
@@ -39,8 +40,7 @@ export default function LoginForm() {
         // Sauvegarde le token pour tes appels backend
         localStorage.setItem("access_token", data.access_token);
         localStorage.setItem("user", user.email);
-        alert("Connexion réussie !");
-        // Redirige ou change d'état
+      //redirection "/"
       } else {
         setError(data.error_description || "Erreur de connexion");
       }

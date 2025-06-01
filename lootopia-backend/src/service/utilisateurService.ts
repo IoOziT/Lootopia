@@ -55,16 +55,12 @@ export const utilisateurService = {
     const utilisateur = await prisma.utilisateur.findFirst({
       where: { email },
     });
-    console.log("utilisateur", utilisateur);
     return utilisateur;
   },
 
   create: async (context: Context) => {
     try {
       const userInput = await context.req.json();
-      console.log(userInput);
-      console.log(userInput.email);
-      console.log(userInput.name);
       const createdUser = await prisma.utilisateur.create({
         data: {
           email: userInput.email,

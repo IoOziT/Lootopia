@@ -10,4 +10,5 @@ export default [
   // HUNT
   route("hunt/create", "routes/chasse/createChasse.tsx"),
   route("hunt/:id", "routes/chasse/detailsChasse.tsx"),
+  route("hunt/:id/step/create", "routes/etape/createEtape.tsx"),
 ] satisfies RouteConfig;
