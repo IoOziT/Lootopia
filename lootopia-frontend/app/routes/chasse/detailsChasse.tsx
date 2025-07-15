@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import type { Route } from "./+types/createChasse";
 import { chasseService } from "~/services/chasseService";
+import { useParams } from "react-router-dom";
+import InscriptionChasse from "./inscriptionChasse";
+
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Lootopia | Détails chasse" }];
@@ -10,6 +13,9 @@ export default function DetailsChasse() {
   const [chasseData, setChasseData] = useState<Chasse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+   const { id } = useParams(); 
+  const chasseId = Number(id) || 1;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -39,9 +45,14 @@ export default function DetailsChasse() {
             <h1 className="text-3xl font-bold">{chasseData.titre}</h1>
             <h2>{chasseData.mode}</h2>
           </header>
+               <div className="px-4 py-4 flex justify-center">
+  <InscriptionChasse chasseId={chasseId} />
+</div>
           <div className="h-full px-4 py-2">
             <p>{chasseData.description}</p>
           </div>
+
+    
         </div>
       )}
     </main>
