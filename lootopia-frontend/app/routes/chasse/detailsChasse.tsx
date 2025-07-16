@@ -1,28 +1,32 @@
-import { useEffect, useState } from "react";
-import type { Route } from "./+types/createChasse";
-import { chasseService } from "~/services/chasseService";
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
+import { chasseService } from "~/services/chasseService"
+import type { Route } from "./+types/createChasse"
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Lootopia | Détails chasse" }];
+  return [{ title: "Lootopia | Détails chasse" }]
 }
 
 export default function DetailsChasse() {
-  const [chasseData, setChasseData] = useState<Chasse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [chasseData, setChasseData] = useState<Chasse | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  const { id } = useParams()
+  const chasseId = Number(id) || 1
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("access_token")
       chasseService.findById(1, token as string).then((data) => {
-        setChasseData(data);
-        setLoading(false);
-      });
+        setChasseData(data)
+        setLoading(false)
+      })
     }
-  }, []);
+  }, [])
 
-  if (loading) return <p className="p-4">Chargement...</p>;
-  if (error) return <p className="p-4 text-red-500">{error}</p>;
+  if (loading) return <p className="p-4">Chargement...</p>
+  if (error) return <p className="p-4 text-red-500">{error}</p>
 
   return (
     <main className="h-11/12 flex flex-col gap-4">
@@ -36,8 +40,12 @@ export default function DetailsChasse() {
                 className="rounded-xl w-full h-48 object-cover"
               />
             </figure>
-            <h1 className="text-3xl font-bold mt-4">{chasseData.titre || "The Lost Crowns"}</h1>
-            <h2 className="text-sm text-gray-300">{chasseData.mode || "Public"}</h2>
+            <h1 className="text-3xl font-bold mt-4">
+              {chasseData.titre || "The Lost Crowns"}
+            </h1>
+            <h2 className="text-sm text-gray-300">
+              {chasseData.mode || "Public"}
+            </h2>
           </header>
 
           <div className="bg-white px-4 py-6">
@@ -56,5 +64,5 @@ export default function DetailsChasse() {
         </div>
       )}
     </main>
-  );
+  )
 }

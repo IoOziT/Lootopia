@@ -58,4 +58,24 @@ export const chasseService = {
       console.error(error);
     }
   },
+
+  register: async (chasseId: number, token: string) => {
+  try {
+    const response = await fetch(`${API_ADDRESS}chasse/protected/${chasseId}/inscription`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const json = await response.json();
+    return { status: response.status, data: json };
+  } catch (error) {
+    console.error("Erreur lors de l'inscription :", error);
+    throw error;
+  }
+}
+
 };

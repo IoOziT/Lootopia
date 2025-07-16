@@ -47,4 +47,13 @@ export const chasseService = {
     });
     return deletedChasse;
   },
+
+  register: async (chasseId: number, utilisateurId: number) => {
+  return await prisma.participer.create({
+    data: {
+      chasse_id: chasseId,
+      utilisateur_id: utilisateurId,
+    },
+  });
+},
 };
