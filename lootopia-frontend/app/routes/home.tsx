@@ -1,16 +1,15 @@
-import { useNavigate } from "react-router-dom";
-import type { Route } from "./+types/home";
-import Menu from "../menu/menu";
+import { useNavigate } from "react-router-dom"
+import type { Route } from "./+types/home"
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Lootopia | Accueil" }];
+  return [{ title: "Lootopia | Accueil" }]
 }
 
 export default function Home() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
-    <div className="flex flex-col min-h-screen bg-black text-white">
+    <div className="flex flex-col min-h-screen bg-black text-white overflow-auto">
       <div className="flex flex-col items-center justify-center pt-16 pb-10">
         <h1 className="text-4xl font-bold mb-6">Play</h1>
         <button
@@ -56,39 +55,83 @@ export default function Home() {
         </div>
 
         <h2 className="text-xl font-semibold mb-3">📸 Galerie des joueurs</h2>
-<div className="flex overflow-x-auto space-x-6 pb-12">
-  {[
-    { name: "Lou", img: "https://randomuser.me/api/portraits/women/21.jpg" },
-    { name: "Aris", img: "https://randomuser.me/api/portraits/men/32.jpg" },
-    { name: "Zoé", img: "https://randomuser.me/api/portraits/women/12.jpg" },
-    { name: "Nico", img: "https://randomuser.me/api/portraits/men/54.jpg" },
-    { name: "Tara", img: "https://randomuser.me/api/portraits/women/44.jpg" },
-    { name: "Jules", img: "https://randomuser.me/api/portraits/men/18.jpg" },
-    { name: "Léa", img: "https://randomuser.me/api/portraits/women/5.jpg" },
-    { name: "Hugo", img: "https://randomuser.me/api/portraits/men/29.jpg" },
-    { name: "Clara", img: "https://randomuser.me/api/portraits/women/7.jpg" },
-    { name: "Mehdi", img: "https://randomuser.me/api/portraits/men/41.jpg" },
-    { name: "Emma", img: "https://randomuser.me/api/portraits/women/19.jpg" },
-    { name: "Sofiane", img: "https://randomuser.me/api/portraits/men/11.jpg" },
-    { name: "Inès", img: "https://randomuser.me/api/portraits/women/37.jpg" },
-    { name: "Téo", img: "https://randomuser.me/api/portraits/men/2.jpg" },
-    { name: "Noa", img: "https://randomuser.me/api/portraits/women/23.jpg" },
-  ].map((player, i) => (
-    <div
-      key={i}
-      className="w-24 flex-shrink-0 flex flex-col items-center text-center"
-    >
-      <img
-        src={player.img}
-        alt={player.name}
-        className="w-16 h-16 rounded-full object-cover shadow-md"
-      />
-      <p className="mt-2 text-sm font-medium">{player.name}</p>
-    </div>
-  ))}
-</div>
+        <div className="flex overflow-x-auto space-x-6 pb-12">
+          {[
+            {
+              name: "Lou",
+              img: "https://randomuser.me/api/portraits/women/21.jpg",
+            },
+            {
+              name: "Aris",
+              img: "https://randomuser.me/api/portraits/men/32.jpg",
+            },
+            {
+              name: "Zoé",
+              img: "https://randomuser.me/api/portraits/women/12.jpg",
+            },
+            {
+              name: "Nico",
+              img: "https://randomuser.me/api/portraits/men/54.jpg",
+            },
+            {
+              name: "Tara",
+              img: "https://randomuser.me/api/portraits/women/44.jpg",
+            },
+            {
+              name: "Jules",
+              img: "https://randomuser.me/api/portraits/men/18.jpg",
+            },
+            {
+              name: "Léa",
+              img: "https://randomuser.me/api/portraits/women/5.jpg",
+            },
+            {
+              name: "Hugo",
+              img: "https://randomuser.me/api/portraits/men/29.jpg",
+            },
+            {
+              name: "Clara",
+              img: "https://randomuser.me/api/portraits/women/7.jpg",
+            },
+            {
+              name: "Mehdi",
+              img: "https://randomuser.me/api/portraits/men/41.jpg",
+            },
+            {
+              name: "Emma",
+              img: "https://randomuser.me/api/portraits/women/19.jpg",
+            },
+            {
+              name: "Sofiane",
+              img: "https://randomuser.me/api/portraits/men/11.jpg",
+            },
+            {
+              name: "Inès",
+              img: "https://randomuser.me/api/portraits/women/37.jpg",
+            },
+            {
+              name: "Téo",
+              img: "https://randomuser.me/api/portraits/men/2.jpg",
+            },
+            {
+              name: "Noa",
+              img: "https://randomuser.me/api/portraits/women/23.jpg",
+            },
+          ].map((player, i) => (
+            <div
+              key={i}
+              className="w-24 flex-shrink-0 flex flex-col items-center text-center"
+            >
+              <img
+                src={player.img}
+                alt={player.name}
+                className="w-16 h-16 rounded-full object-cover shadow-md"
+              />
+              <p className="mt-2 text-sm font-medium">{player.name}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      <Menu />
     </div>
-  );
+  )
 }

@@ -2,11 +2,11 @@ const menuLinks: any[] = [
   { path: "/", name: "Accueil", icon: "home" },
   { path: "/hunt", name: "Hunt", icon: "star" },
   { path: "/profil", name: "Profil", icon: "person" },
-];
+]
 
 export default function Menu() {
   return (
-    <ul className="dock dock-lg">
+    <ul className="dock dock-lg sticky self-end">
       {menuLinks.map((link) => (
         <li key={link.name}>
           <a
@@ -19,5 +19,5 @@ export default function Menu() {
         </li>
       ))}
     </ul>
-  );
+  )
 }

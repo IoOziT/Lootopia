@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router"
 import { chasseService } from "~/services/chasseService"
 import type { Route } from "./+types/createChasse"
 
@@ -57,9 +57,12 @@ export default function DetailsChasse() {
           </div>
 
           <div className="px-4 pb-6">
-            <button className="w-full bg-black text-white font-semibold text-center py-3 rounded-full hover:opacity-90 transition">
+            <Link
+              className="w-full block bg-black text-white font-semibold text-center py-3 rounded-full hover:opacity-90 transition"
+              to={`/hunt/${chasseId}/play`}
+            >
               Participer
-            </button>
+            </Link>
           </div>
         </div>
       )}

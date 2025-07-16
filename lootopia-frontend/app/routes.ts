@@ -1,4 +1,4 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import { type RouteConfig, index, route } from "@react-router/dev/routes"
 
 export default [
   index("routes/home.tsx"),
@@ -11,8 +11,8 @@ export default [
   route("hunt", "routes/chasse/chasseDisponible.tsx"),
   route("hunt/create", "routes/chasse/createChasse.tsx"),
   route("hunt/:id", "routes/chasse/detailsChasse.tsx"),
+  route("hunt/:id/play", "routes/chasse/participateChasse.tsx"),
 
   // PROFIL
   route("profil", "routes/profil.tsx"),
-
-] satisfies RouteConfig;
+] satisfies RouteConfig
