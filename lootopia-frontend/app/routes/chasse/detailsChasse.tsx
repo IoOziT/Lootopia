@@ -11,7 +11,9 @@ export default function DetailsChasse() {
   const [chasseData, setChasseData] = useState<Chasse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
+
   const { id } = useParams()
+  const chasseId = Number(id) || 1
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -57,7 +59,7 @@ export default function DetailsChasse() {
           <div className="px-4 pb-6">
             <Link
               className="w-full block bg-black text-white font-semibold text-center py-3 rounded-full hover:opacity-90 transition"
-              to={`/hunt/${id}/play`}
+              to={`/hunt/${chasseId}/play`}
             >
               Participer
             </Link>
