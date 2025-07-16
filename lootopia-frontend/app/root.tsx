@@ -10,7 +10,7 @@ import {
 import { Auth0Provider } from "@auth0/auth0-react";
 import type { Route } from "./+types/root";
 import "./app.css";
-import Menu from "./components/menu/menu";
+import Menu from "./menu/menu";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
