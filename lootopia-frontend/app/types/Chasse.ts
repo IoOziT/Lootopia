@@ -9,4 +9,5 @@ type Chasse = {
   frais?: number;
   monde?: string;
   createur_id: number;
+  image?: string;
 };

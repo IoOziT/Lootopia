@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import type { Route } from "./+types/home";
-import Menu from "../components/menu/menu";
+import Menu from "../menu/menu";
 
 export function meta({}: Route.MetaArgs) {
   return [{ title: "Lootopia | Accueil" }];
